@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1C1C1E;
+            color: #F2F2F7;
+        }
+        .tab-active {
+            background-color: #3A3A3C;
+            color: #FFFFFF;
+        }
+        .tab-inactive {
+            background-color: #2C2C2E;
+            color: #8E8E93;
+        }
+        .positive { color: #0A84FF; } /* Blue for positive */
+        .negative { color: #FF3B30; } /* Red for negative */
+        .neutral { color: #8E8E93; }
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #0A84FF; /* Blue */
+            display: inline-block;
+        }
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #FF3B30; /* Red */
+            display: inline-block;
+        }
+        .arrow-flat {
+            width: 10px;
+            height: 2px;
+            background-color: #8E8E93;
+            display: inline-block;
+        }
+        .card {
+            background-color: #2C2C2E;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid #3A3A3C;
+        }
+        .table-header {
+            background-color: #3A3A3C;
+        }
+        .table-body {
+            background-color: #2C2C2E;
+        }
+        input, select {
+            background-color: #3A3A3C;
+            border-color: #545458;
+            color: #F2F2F7;
+        }
+        input:focus, select:focus {
+            --tw-ring-color: #0A84FF;
+            border-color: #0A84FF;
+        }
+        .description {
+            color: #8E8E93;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-full mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">Trading Workspace</h1>
+
+        <!-- Tabs -->
+        <div class="mb-6">
+            <nav class="flex space-x-4" aria-label="Tabs">
+                <button id="futures-tab" class="tab-active px-4 py-2 text-sm font-medium rounded-md focus:outline-none">Futures</button>
+                <button id="options-tab" class="tab-inactive px-4 py-2 text-sm font-medium rounded-md focus:outline-none">Options</button>
+                <button id="hedging-tab" class="tab-inactive px-4 py-2 text-sm font-medium rounded-md focus:outline-none">Hedging & Strategy</button>
+            </nav>
+        </div>
+
+        <!-- Content Panes -->
+        <div id="futures-workspace" class="space-y-8">
+            <!-- NQ Futures -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-white mb-4">NQ - E-mini NASDAQ 100</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">High</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Low</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Close</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Total Vol.</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open Interest</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">OI</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body divide-y divide-gray-700">
+                            <!-- Mock Data for NQ -->
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">FRI 2025-08-08</td><td class="px-4 py-4 whitespace-nowrap text-sm">19850.25 <span class="block text-xs positive">+0.45%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19920.50 <span class="block text-xs positive">+0.80%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19800.00 <span class="block text-xs negative">-0.25%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19910.75 <span class="block text-xs positive">+0.75%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">580,123 <span class="block text-xs positive">+5.2%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">290,456 <span class="block text-xs positive">+1.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">THU 2025-08-07</td><td class="px-4 py-4 whitespace-nowrap text-sm">19760.50 <span class="block text-xs negative">-0.20%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19790.25 <span class="block text-xs negative">-0.15%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19650.75 <span class="block text-xs negative">-0.70%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19770.00 <span class="block text-xs negative">-0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">610,543 <span class="block text-xs negative">-2.5%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">287,321 <span class="block text-xs negative">-0.5%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">WED 2025-08-06</td><td class="px-4 py-4 whitespace-nowrap text-sm">19800.00 <span class="block text-xs positive">+0.90%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19850.50 <span class="block text-xs positive">+1.2%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19750.25 <span class="block text-xs positive">+0.8%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19790.25 <span class="block text-xs positive">+1.0%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">625,876 <span class="block text-xs positive">+8.1%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">288,789 <span class="block text-xs positive">+0.3%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">TUE 2025-08-05</td><td class="px-4 py-4 whitespace-nowrap text-sm">19620.75 <span class="block text-xs negative">-0.50%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19640.00 <span class="block text-xs negative">-0.40%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19580.50 <span class="block text-xs negative">-0.65%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19600.25 <span class="block text-xs negative">-0.55%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">578,987 <span class="block text-xs negative">-4.2%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">287,945 <span class="block text-xs negative">-0.2%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">MON 2025-08-04</td><td class="px-4 py-4 whitespace-nowrap text-sm">19720.00 <span class="block text-xs positive">+0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19750.25 <span class="block text-xs positive">+0.25%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19700.75 <span class="block text-xs positive">+0.05%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">19710.50 <span class="block text-xs positive">+0.15%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">604,321 <span class="block text-xs positive">+1.5%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">288,500 <span class="block text-xs positive">+0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- ES Futures -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-white mb-4">ES - E-mini S&P 500</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">High</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Low</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Close</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Total Vol.</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open Interest</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">OI</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body divide-y divide-gray-700">
+                            <!-- Mock Data for ES -->
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">FRI 2025-08-08</td><td class="px-4 py-4 whitespace-nowrap text-sm">5400.75 <span class="block text-xs positive">+0.30%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5425.50 <span class="block text-xs positive">+0.60%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5395.25 <span class="block text-xs negative">-0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5420.00 <span class="block text-xs positive">+0.55%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,520,345 <span class="block text-xs positive">+4.1%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,950,123 <span class="block text-xs positive">+0.9%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">THU 2025-08-07</td><td class="px-4 py-4 whitespace-nowrap text-sm">5385.00 <span class="block text-xs negative">-0.15%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5390.25 <span class="block text-xs negative">-0.05%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5370.75 <span class="block text-xs negative">-0.40%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5392.50 <span class="block text-xs negative">-0.01%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,461,625 <span class="block text-xs negative">-3.8%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,931,474 <span class="block text-xs negative">-0.4%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">WED 2025-08-06</td><td class="px-4 py-4 whitespace-nowrap text-sm">5392.75 <span class="block text-xs positive">+0.80%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5410.00 <span class="block text-xs positive">+1.1%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5380.50 <span class="block text-xs positive">+0.7%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5393.00 <span class="block text-xs positive">+0.85%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,519,876 <span class="block text-xs positive">+10.2%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,938,789 <span class="block text-xs positive">+0.2%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">TUE 2025-08-05</td><td class="px-4 py-4 whitespace-nowrap text-sm">5350.00 <span class="block text-xs negative">-0.70%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5365.25 <span class="block text-xs negative">-0.50%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5340.00 <span class="block text-xs negative">-0.85%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5350.25 <span class="block text-xs negative">-0.65%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,378,987 <span class="block text-xs negative">-5.1%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,934,945 <span class="block text-xs negative">-0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">MON 2025-08-04</td><td class="px-4 py-4 whitespace-nowrap text-sm">5388.00 <span class="block text-xs positive">+0.20%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5395.25 <span class="block text-xs positive">+0.35%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5385.75 <span class="block text-xs positive">+0.15%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">5389.50 <span class="block text-xs positive">+0.25%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,452,321 <span class="block text-xs positive">+2.0%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">1,936,500 <span class="block text-xs positive">+0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+             <!-- FDAX Futures -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-white mb-4">FDAX - EURO STOXX 50</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">High</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Low</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Close</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Total Vol.</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Open Interest</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Price</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Volume</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">OI</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body divide-y divide-gray-700">
+                            <!-- Mock Data for FDAX -->
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">FRI 2025-08-08</td><td class="px-4 py-4 whitespace-nowrap text-sm">4950.0 <span class="block text-xs positive">+0.20%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4980.5 <span class="block text-xs positive">+0.50%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4945.0 <span class="block text-xs negative">-0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4975.0 <span class="block text-xs positive">+0.40%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">150,123 <span class="block text-xs positive">+3.5%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">450,456 <span class="block text-xs positive">+0.8%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">THU 2025-08-07</td><td class="px-4 py-4 whitespace-nowrap text-sm">4940.5 <span class="block text-xs negative">-0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4955.0 <span class="block text-xs positive">+0.05%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4930.0 <span class="block text-xs negative">-0.30%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4955.5 <span class="block text-xs positive">+0.1%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">145,543 <span class="block text-xs negative">-2.0%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">447,321 <span class="block text-xs negative">-0.3%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">WED 2025-08-06</td><td class="px-4 py-4 whitespace-nowrap text-sm">4945.0 <span class="block text-xs positive">+0.60%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4960.5 <span class="block text-xs positive">+0.9%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4935.0 <span class="block text-xs positive">+0.4%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4950.0 <span class="block text-xs positive">+0.7%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">148,876 <span class="block text-xs positive">+7.5%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">448,789 <span class="block text-xs positive">+0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">TUE 2025-08-05</td><td class="px-4 py-4 whitespace-nowrap text-sm">4915.5 <span class="block text-xs negative">-0.40%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4920.0 <span class="block text-xs negative">-0.30%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4900.5 <span class="block text-xs negative">-0.55%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4915.0 <span class="block text-xs negative">-0.45%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">138,987 <span class="block text-xs negative">-3.8%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">448,345 <span class="block text-xs negative">-0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-down"></span></td></tr>
+                            <tr><td class="px-4 py-4 whitespace-nowrap text-sm">MON 2025-08-04</td><td class="px-4 py-4 whitespace-nowrap text-sm">4935.0 <span class="block text-xs positive">+0.15%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4940.0 <span class="block text-xs positive">+0.25%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4930.5 <span class="block text-xs positive">+0.10%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">4935.5 <span class="block text-xs positive">+0.20%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">144,321 <span class="block text-xs positive">+1.8%</span></td><td class="px-4 py-4 whitespace-nowrap text-sm">448,800 <span class="block text-xs positive">+0.1%</span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-up"></span></td><td class="px-4 py-4 whitespace-nowrap"><span class="arrow-flat"></span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="options-workspace" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Options Market Overview</h3>
+                    <p class="description">A real-time news feed covering market-moving events and analysis.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Unusual Stock Options Activity</h3>
+                    <p class="description">Identifies contracts with volume significantly higher than open interest, signaling potential large moves. Bullish sentiment is highlighted in blue, bearish in red.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Options Flow</h3>
+                    <p class="description">Highlights large option trades across all U.S. exchanges, providing insights into institutional sentiment and volatility expectations.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Upcoming Earnings</h3>
+                    <p class="description">A list of optionable stocks with earnings reports scheduled for the next trading day.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">IV Rank & IV Percentile</h3>
+                    <p class="description">IV Rank shows current Implied Volatility relative to its 1-year high/low. IV Percentile shows the percentage of days it's been lower than the current level. High IV suggests expectations of large price swings.</p>
+                </div>
+                 <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Implied vs Realized Volatility</h3>
+                    <p class="description">Compares forward-looking implied volatility to backward-looking historical volatility. A ratio > 1.0 implies high premiums (good for sellers), while < 1.0 implies low premiums (good for buyers).</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Highest Implied Volatility</h3>
+                    <p class="description">Highlights strikes with elevated implied volatility, where the market anticipates a large price swing. Preferred for strategies like covered calls or credit spreads to capitalize on inflated premiums.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">% Change in Volatility</h3>
+                    <p class="description">A large increase in IV highlights strikes where the market anticipates a large price move, making premiums more expensive. A large decrease suggests stable prices and cheaper premiums.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Most Active Options</h3>
+                    <p class="description">Ranks stocks, ETFs, and indices by their total option trading volume for the day. A high put/call volume ratio reflects bearish sentiment, while a low ratio reflects bullish sentiment.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Unusual Options Volume</h3>
+                    <p class="description">Shows the difference between the current day's volume and the average volume over the past month, highlighting unusual trading activity.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">Highest Open Positions</h3>
+                    <p class="description">Ranks stocks, ETFs, and indices by total open interest. A high put/call open interest ratio reflects bearish sentiment, while a low ratio reflects bullish sentiment. Updated daily at market open.</p>
+                </div>
+                 <div class="card">
+                    <h3 class="text-lg font-semibold text-white mb-2">% Change in Open Interest</h3>
+                    <p class="description">Highlights contracts with the largest daily percentage increase in Open Interest. An increase indicates new positions are being opened, while a decrease indicates positions are being closed.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="hedging-workspace" class="hidden space-y-6">
+             <!-- P&L Calculator -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-white mb-4">P&L Calculator</h2>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                    <div>
+                        <label for="pnl-side" class="block text-sm font-medium text-gray-300 mb-1">Side</label>
+                        <select id="pnl-side" class="block w-full rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option>Long</option>
+                            <option>Short</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pnl-quantity" class="block text-sm font-medium text-gray-300 mb-1">Quantity</label>
+                        <input type="number" id="pnl-quantity" class="block w-full rounded-md shadow-sm py-2 px-3" value="1" min="0">
+                    </div>
+                    <div>
+                        <label for="pnl-entry" class="block text-sm font-medium text-gray-300 mb-1">Entry Price</label>
+                        <input type="number" id="pnl-entry" class="block w-full rounded-md shadow-sm py-2 px-3" placeholder="0.00" min="0">
+                    </div>
+                    <div>
+                        <label for="pnl-exit" class="block text-sm font-medium text-gray-300 mb-1">Exit Price</label>
+                        <input type="number" id="pnl-exit" class="block w-full rounded-md shadow-sm py-2 px-3" placeholder="0.00" min="0">
+                    </div>
+                    <button id="pnl-calculate-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-full">Calculate</button>
+                </div>
+                <div id="pnl-result" class="mt-6 text-center h-16 flex flex-col justify-center">
+                    <!-- Result will be displayed here -->
+                </div>
+            </div>
+            <!-- Options Calculator -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-white mb-4">Options Calculator</h2>
+                <div class="space-y-6">
+                    <!-- Top Selection -->
+                    <div class="flex flex-wrap items-end gap-4">
+                        <div class="flex-grow">
+                            <label for="symbol-search" class="block text-sm font-medium text-gray-300 mb-1">Enter an equity or index symbol:</label>
+                            <input type="text" id="symbol-search" class="block w-full rounded-md shadow-sm py-2 px-3" placeholder="Search for a Symbol...">
+                        </div>
+                        <div class="flex-grow">
+                            <label for="option-type" class="block text-sm font-medium text-gray-300 mb-1">Option Type</label>
+                            <select id="option-type" class="block w-full rounded-md shadow-sm py-2 px-3">
+                                <option>Call</option>
+                                <option>Put</option>
+                            </select>
+                        </div>
+                        <div class="flex-grow">
+                            <label for="option-expiration" class="block text-sm font-medium text-gray-300 mb-1">Expiration</label>
+                            <select id="option-expiration" class="block w-full rounded-md shadow-sm py-2 px-3">
+                                <option>2025-08-15 (m)</option>
+                            </select>
+                        </div>
+                         <div class="flex-grow">
+                            <label for="option-strike" class="block text-sm font-medium text-gray-300 mb-1">Strike Price</label>
+                            <select id="option-strike" class="block w-full rounded-md shadow-sm py-2 px-3">
+                                <option>230.00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Main Calculator Body -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 pt-4 border-t border-gray-700">
+                        <!-- Input Parameters -->
+                        <div class="space-y-3">
+                            <h3 class="text-lg font-semibold text-white">Input Parameters</h3>
+                            <div class="flex items-center justify-between">
+                                <label for="param-underlying" class="text-sm text-gray-300">Underlying Price</label>
+                                <input id="param-underlying" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="229.35">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <label for="param-strike" class="text-sm text-gray-300">Strike Price</label>
+                                <input id="param-strike" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="230.00">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <label for="param-dte" class="text-sm text-gray-300">DTE (days)</label>
+                                <input id="param-dte" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="6">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <label for="param-rate" class="text-sm text-gray-300">Risk-free rate%</label>
+                                <input id="param-rate" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="3.93%">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <label for="param-volatility" class="text-sm text-gray-300">Volatility</label>
+                                <input id="param-volatility" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="29.35%">
+                            </div>
+                             <div class="flex items-center justify-between">
+                                <label for="param-dividend" class="text-sm text-gray-300">Dividend Yield%</label>
+                                <input id="param-dividend" type="text" class="w-32 rounded-md py-1 px-2 text-right" value="0.44%">
+                            </div>
+                        </div>
+                        <!-- Calculated Values & IV -->
+                        <div class="space-y-6">
+                            <!-- Theoretical Values -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-semibold text-white">Calculated Theoretical Values</h3>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Theoretical Price</p><p class="font-mono text-white">3.19</p></div>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Delta</p><p class="font-mono text-white">0.48359</p></div>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Gamma</p><p class="font-mono text-white">0.04619</p></div>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Vega</p><p class="font-mono text-white">0.11721</p></div>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Theta</p><p class="font-mono text-white negative">-0.29828</p></div>
+                                <div class="flex items-center justify-between"><p class="text-sm text-gray-300">Rho</p><p class="font-mono text-white">0.01771</p></div>
+                            </div>
+                            <!-- IV Calculation -->
+                            <div class="space-y-3 pt-6 border-t border-gray-700">
+                                 <h3 class="text-lg font-semibold text-white">IV Calculation</h3>
+                                 <div class="flex items-center justify-between">
+                                    <p class="text-sm text-gray-300">Market Option Price</p>
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex items-center gap-2">
+                                            <input type="radio" id="iv-last" name="iv-source" value="last" class="h-4 w-4" checked><label for="iv-last">Last</label>
+                                            <input type="radio" id="iv-bid" name="iv-source" value="bid" class="h-4 w-4"><label for="iv-bid">Bid</label>
+                                            <input type="radio" id="iv-ask" name="iv-source" value="ask" class="h-4 w-4"><label for="iv-ask">Ask</label>
+                                        </div>
+                                        <input id="iv-price" type="text" class="w-24 rounded-md py-1 px-2 text-right" value="3.20">
+                                    </div>
+                                 </div>
+                                 <div class="flex items-center justify-between">
+                                    <p class="text-sm text-gray-300">Implied Volatility</p>
+                                    <p class="font-mono text-white">29.41%</p>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Tab switching logic ---
+            const tabs = [
+                { id: 'futures', button: document.getElementById('futures-tab'), workspace: document.getElementById('futures-workspace') },
+                { id: 'options', button: document.getElementById('options-tab'), workspace: document.getElementById('options-workspace') },
+                { id: 'hedging', button: document.getElementById('hedging-tab'), workspace: document.getElementById('hedging-workspace') }
+            ];
+
+            tabs.forEach(tab => {
+                tab.button.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.button.classList.remove('tab-active');
+                        t.button.classList.add('tab-inactive');
+                        t.workspace.classList.add('hidden');
+                    });
+                    tab.button.classList.add('tab-active');
+                    tab.button.classList.remove('tab-inactive');
+                    tab.workspace.classList.remove('hidden');
+                });
+            });
+
+            // --- P&L Calculator Logic ---
+            const pnlSide = document.getElementById('pnl-side');
+            const pnlQuantity = document.getElementById('pnl-quantity');
+            const pnlEntry = document.getElementById('pnl-entry');
+            const pnlExit = document.getElementById('pnl-exit');
+            const pnlCalculateBtn = document.getElementById('pnl-calculate-btn');
+            const pnlResult = document.getElementById('pnl-result');
+
+            pnlCalculateBtn.addEventListener('click', () => {
+                const side = pnlSide.value;
+                const quantity = parseFloat(pnlQuantity.value);
+                const entryPrice = parseFloat(pnlEntry.value);
+                const exitPrice = parseFloat(pnlExit.value);
+
+                if (isNaN(quantity) || isNaN(entryPrice) || isNaN(exitPrice) || quantity <= 0 || entryPrice < 0 || exitPrice < 0) {
+                    pnlResult.innerHTML = `<p class="text-yellow-400">Please enter valid, positive numbers for all fields.</p>`;
+                    return;
+                }
+
+                let pnl = 0;
+                if (side === 'Long') {
+                    pnl = (exitPrice - entryPrice) * quantity;
+                } else { // Short
+                    pnl = (entryPrice - exitPrice) * quantity;
+                }
+
+                const resultClass = pnl >= 0 ? 'positive' : 'negative';
+                const sign = pnl >= 0 ? '+' : '';
+
+                pnlResult.innerHTML = `
+                    <p class="text-sm text-gray-400">Potential P&L</p>
+                    <p class="text-3xl font-bold ${resultClass}">${sign}${pnl.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+                `;
+            });
+            
+            // Note: Options Calculator is currently UI only. No calculation logic is implemented yet.
+
+            // --- Initial state ---
+            tabs[0].button.click();
+        });
+    </script>
+
+</body>
+</html>
